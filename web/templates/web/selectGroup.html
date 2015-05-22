@@ -1,0 +1,33 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+    <span class="sr-only">40% Complete (success)</span>
+</div>
+<center>
+	<h2>Tria de quin grup ets!</h2>
+	<form id='formulario' method='POST' action=''>
+	{% csrf_token %}
+	<select id='grupo'>
+		{% for grupo in grupos %}
+		<option>
+			{{ grupo.name }}
+		</option>
+		{% endfor %}
+	</select>
+	<input type="submit" value="Crear"/>
+	</form>
+</center>
+<center class="col-md-6">
+	<h2>Entra</h2>
+	<form action='login/in/' method='POST'>
+		{% csrf_token %}
+		<div class="form-group">
+			<input name="username" type="text" class="form-control" placeholder="Username">
+			<input name="password" type="password" class="form-control" placeholder="Password">
+		</div>
+	<br>
+	<button type="submit" class="btn btn-default">Entra</button>
+	</form>
+</center>
+{% endblock %}

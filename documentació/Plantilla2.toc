@@ -1,0 +1,11 @@
+\select@language {catalan}
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}}{3}{section.1}
+\contentsline {section}{\numberline {2}Eines emprades}{3}{section.2}
+\contentsline {section}{\numberline {3}Organitzaci\IeC {\'o} del projecte}{4}{section.3}
+\contentsline {section}{\numberline {4}Guia d'Usuari de l'Eina}{5}{section.4}
+\contentsline {section}{\numberline {5}Funcionament}{6}{section.5}
+\contentsline {subsection}{\numberline {5.1}Creaci\IeC {\'o} d'usuaris i Entrada}{6}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}P\IeC {\`a}gina Principal}{6}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Escalat de tickets}{6}{subsection.5.3}
+\contentsline {section}{\numberline {6}Soluci\IeC {\'o} de problemes}{6}{section.6}
+\contentsline {section}{\numberline {7}Prova de l'eina en l\IeC {\'\i }nia}{6}{section.7}

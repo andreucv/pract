@@ -1,0 +1,23 @@
+{% extends 'home.html' %}
+{% load bootstrap %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<form id='formulario' method='POST' action='{{request.path}}'>
+			{% csrf_token %}
+			<div class="well">
+				<div class="row">
+					<div class="col-md-6">
+						{{userform | bootstrap}}
+					</div>
+					<div class="col-md-6">
+						{{groupform | bootstrap}}
+						<input class="btn btn-default" type="submit" value="{{idioma.enviar}}">
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

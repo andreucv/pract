@@ -1,0 +1,73 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			{% if searchedTickets %}	
+			<h3> {{idioma.ticketsbuscados}} </h3>
+			{% for ticket in searchedTickets %}
+			{% include 'web/ticket.html' %}
+			{% endfor %}
+			{% endif %}
+			{% if ownTickets or assignedTickets %}
+			<div>
+				{% if assignedTickets %}	
+				<h3> {{idioma.ticketsasignados}} </h3>
+				{% for ticket in assignedTickets %}
+				{% include 'web/ticket.html' %}
+				{% endfor %}
+				{% endif %}
+			</div>
+			<div>
+				{% if ownTickets %}	
+				<h3> {{idioma.ticketscreados}} </h3>
+				{% for ticket in ownTickets %}
+				{% include 'web/ticket.html' %}
+				{% endfor %}
+				{% endif %}
+			</div>
+			{% endif %}
+			{% if not ownTickets and not assignedTickets %}
+			<h3>{{idioma.eNoHayTickets}}</h3>
+			{% endif %}
+		</div>
+		<div class="col-md-4">
+			<div>
+				<h3>{{idioma.nuevaincidencia}}</h3>
+				<div class="well">
+					<form class="text-center" method='POST' action="{% url 'postTicket' %}">
+						{% csrf_token %}
+						<div class="form-group">
+							<input name="titulo" type="text" class="form-control" placeholder="{{idioma.tituloincidencia}}" maxlength="20" required>
+
+							<textarea name="texto" type="textarea" class="form-control" placeholder="{{idioma.cuerpoincidencia}}" maxlength="500" rows="3" required></textarea>
+							{% comment 'La data hauria d.haver un botó per defecte ara i per poder posar la data que va sorgir' %}{% endcomment %}
+							<select name="prioridad" class="text-center form-control">
+								{% for prioridad in prioridades %}
+								<option value="{{prioridad.pk}}">{{prioridad.nombre}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<input class="btn btn-default text-center" type="submit" value="{{idioma.enviar}}">
+					</form>
+				</div>
+			</div>
+			{% if isAdmin %}
+			<div>
+				<h3>{{idioma.buscaincidencia}}</h3>
+				<div class="well">
+					<form class="text-center" method='POST' action="{% url 'searchTicket' %}">
+						{% csrf_token %}
+						<div class="form-group">
+							<input name="words" type="text" class="form-control" placeholder="{{idioma.buscar}}" maxlength="40">
+						</div>
+						<input class="btn btn-default text-center" type="submit" value="{{idioma.buscar}}">
+					</form>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}

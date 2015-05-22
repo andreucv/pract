@@ -1,0 +1,6 @@
+{{idioma.emailSr}} {{user.get_full_name}}
+
+{{idioma.graciasEmailRegistro}}
+
+{{idioma.emailNombreCompleto}} {{user.get_full_name}}
+{{idioma.emailNombreUsuario}} {{user.username}}

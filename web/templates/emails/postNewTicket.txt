@@ -1,0 +1,5 @@
+{{idioma.emailSr}} {{user.get_full_name}}
+
+{{idioma.ticketId}} {{ticket.pk}} {{idioma.emailTicketNuevo}}
+
+{{idioma.emailEstadoTicket}} {{ticket.estado.nombre}}

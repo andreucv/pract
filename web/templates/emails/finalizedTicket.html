@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h2>{{idioma.emailSr}} {{user.get_full_name}}</h2>
+        <p> <strong> {{idioma.emailTicketId}} {{ticket.pk}} {{idioma.emailTicketFinalizado}}</strong> </p>
+        <p>{{idioma.emailTicketEstado}} <strong>{{ticket.estado.nombre}}</strong></p>
+        <p>{{idioma.emailTicketComentarios}} : <p>
+        	{% for comment in ticket.comentarios.all|slice:"5:" %}
+        	<p>{{comment.tecnico}} {{idioma.comentarioHora}} {{comment.fechahora}} <strong>{{comment.texto}}</strong></p>
+        	{%endfor %}
+    </body>
+</html>

@@ -1,0 +1,86 @@
+<div class="panel" ng-class="colourPriority({{ticket.prioridad.pk}})">
+	<div class="panel-heading" ng-click="toggleTicket({{ticket.pk}})">
+		<div class="row">
+			{% if isAdmin %}
+			<h4 class="col-md-1 col-lg-1">#{{ticket.pk}}</h4>
+			{% endif %}
+			<h4 class="col-md-6 col-ld-6">{{ticket.titulo}}</h4>
+			<h6 class="col-md-2 col-ld-2">{{ticket.estado.nombre}}</h6>
+			{% if isAdmin %}
+			<h6 class="col-md-2 col-ld-2">{{ticket.prioridad.nombre}}</h6>
+			<form class="col-md-1 col-ld-1" method="POST" action="{% url 'deleteTicket' %}">
+				{% csrf_token %}
+				<input type="hidden" name="ticket" value="{{ticket.pk}}">
+				<button type="submit" value="x"></button>
+			</form>
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="panel-body" ng-show="isToShow({{ticket.pk}})">
+		<div class="row">
+			<div class="col-md-8">
+				<p>{{ticket.texto}}</p>
+				{% for comentario in ticket.comentarios.all %}
+				<h6> {{idioma.comentarios}} </h6>
+				<div class="media">
+					{% if isAdmin or comentario.tecnico.username == user.username %}
+					<div class="pull-right">
+						<form method="POST" action="{% url 'deleteComment' %}">
+							{% csrf_token %}
+							<input type="hidden" name="comment" value="{{comentario.pk}}">
+							
+							<button type="submit"><span class="glyphicon glyphicon-remove" style="vertical-align:middle">
+							</span></button>
+						</form>
+					</div>
+					{% endif %}
+					<div class="media-header"> <strong>{{comentario.tecnico.get_full_name}} {{idioma.comentarioHora}} {{comentario.fechahora}}: </strong></div>
+					
+					<div class="media-body"> {{comentario.texto}} </div>
+				</div>
+				{% endfor %}
+				<br>
+				{% if isAdmin %}
+				<h6> {{idioma.nuevoComentario}} </h6>
+				<form class="" action="{% url 'postComment' %}" method="POST">
+					{% csrf_token %}
+					<input type="text" class="form-control" name="comment">
+					<input class="btn btn-default pull-center" type="submit" value="{{idioma.enviar}}">
+					<input type="hidden" class="pull-right" name="ticket" value="{{ticket.pk}}">
+				</form>
+				{% endif %}
+			</div>
+			{% if isAdmin and ticket.asignado.username == user.username %}
+			<div class="col-md-4">
+				<h6> Admin Ticket </h6>
+				<form action="{% url 'updateTicket' %}" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="ticket" value="{{ticket.pk}}">
+					<div class="form-group">
+						<label for="tecnico">{{idioma.asignar}}</label>
+						<select class="form-control" id="tecnico" name="tecnico">
+							{% for tecnico in tecnicos %}
+							<option value="{{tecnico.username}}">{{tecnico.username}}  -  {{tecnico.groups.all.0}}</option>
+							{% endfor %}
+						</select>
+						<label for="prioridad">{{idioma.prioridad}} </label>
+						<select class="form-control" id="prioridad" name="prioridad">
+							{% for prioridad in prioridades %}
+							<option value="{{prioridad.pk}}">{{prioridad.nombre}}</option>
+							{% endfor %}
+						</select>
+						<label for="estado"> {{idioma.estado}} </label>
+						<select class="form-control" name="estado">
+							{% for estado in estados %}
+							<option value="{{estado.pk}}">{{estado.nombre}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<input class="btn btn-default text-center" type="submit" value="{{idioma.actualizar}}">
+				</form>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
